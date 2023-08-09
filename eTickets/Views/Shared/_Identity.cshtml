@@ -19,7 +19,7 @@ else
     <div class="dropdown">
         <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown"
                 aria-expanded="false">
-            <i class="bi bi-person-badge"></i> Hello User
+            <i class="bi bi-person-badge"></i> Hello @UserManager.Users.Where(u => u.Id == UserManager.GetUserId(User)).Select(u => u.FullName).FirstOrDefault().ToString()
         </button>
         <ul class="dropdown-menu" aria-labelledby="profile-btn">
             <li>

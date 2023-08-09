@@ -81,9 +81,15 @@ namespace eTickets.Controllers
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
+
             if (newUserResponse.Succeeded)
             {
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
+            }
+            else
+            {
+                TempData["Error"] = "Password too short, require numeric, upper, special character";
+                return View(registerVM);
             }
             return View("RegisterCompleted");
         }
@@ -92,6 +98,7 @@ namespace eTickets.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            HttpContext.Session.Clear();
             return RedirectToAction("Index", "Movies");
         }
 
